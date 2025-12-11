@@ -8,15 +8,15 @@ const userSchema = new Schema(
             unique: true,
             lowercase: true,
             trim: true,
-            minLength: 1,
-            maxLength: 30,
+            minlength: 1,
+            maxlength: 30,
         },
 
         password: {
-            type: string,
+            type: String,
             required: true,
-            minLength: 8,
-            maxLength: 30
+            minlength: 8,
+            maxlength: 30
         },
 
         email: {
