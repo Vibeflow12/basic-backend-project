@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import bycrypt from "bcrypt"
+import bcrypt from "bcrypt"
 
 const userSchema = new Schema(
     {
@@ -39,13 +39,14 @@ const userSchema = new Schema(
 // hashing the password if not hashed
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-    this.password = await bycrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
+
     next();
 })
 
 // comapir passwords
 
-userSchema.method.comparePassword = async function (password) {
-    return await bycrypt.compare(password, this.password)
+userSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password, this.password)
 }
 export const User = mongoose.model("User", userSchema)
