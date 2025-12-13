@@ -73,4 +73,26 @@ const loginUser = async (req, res) => {
 
     }
 }
-export { registerUser, loginUser }
+
+const logoutUser = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({
+            email
+        });
+
+        if (!user) return res.status(400).json({
+            message: "user not found"
+        });
+
+        res.status(200).json({
+            message: "logout sucessful"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "internal server error", error
+        })
+    }
+}
+export { registerUser, loginUser, logoutUser }
